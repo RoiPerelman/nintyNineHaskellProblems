@@ -1,6 +1,4 @@
 module Main where
 
-import Lib
-
 main :: IO ()
-main = someFunc
+main = putStr "Main is working and doing nothing"
