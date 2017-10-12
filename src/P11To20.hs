@@ -1,4 +1,4 @@
-module Lib
+module P11To20
     ( myLast
     , myButLast
     , elementAt
@@ -8,6 +8,8 @@ module Lib
     , flatten
     , NestedList (Elem, List)
     , compress
+    , pack
+    , encode
     ) where
 
 import Control.Monad
@@ -74,5 +76,17 @@ compress2 :: Eq a => [a] -> [a]
 compress2 = map head . group
 
 -- Problem 9
--- pack :: Eq a => [a] -> [[a]]
--- pack x = 
+pack :: Eq a => [a] -> [[a]]
+pack [] = []
+pack (x:xs) = (x : takeWhile (==x) xs) : (pack $ dropWhile (==x) xs)
+
+pack2 :: Eq a => [a] -> [[a]]
+pack2 = foldr packFold [] where
+  packFold x [] = [[x]]
+  packFold x (ys:yss) =
+    if head ys == x then ((x:ys):yss) else ([x]:ys:yss)
+
+-- Problem 10
+encode :: Eq a => [a] -> [(Int, a)]
+encode xss = map (\xs -> (length xs, head xs)) $ pack xss
+

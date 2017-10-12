@@ -1,62 +1,12 @@
 import Test.Hspec
-import Test.QuickCheck.Arbitrary
-import Control.Exception (evaluate)
 
-import Lib
+import qualified P1To10Spec
+import qualified P11To20Spec
 
 main :: IO ()
-main = hspec $ do
+main = hspec spec
 
-  describe "Problem 1 - Find the last element of a list" $ do
-    context "last" $ do
-      it "should return last element of a list" $ do
-        last [23 .. 25] `shouldBe` (25 :: Int)
-      it "should return exception for empty list" $ do
-        last [] `shouldThrow` errorCall "Prelude.last: empty list"
-
-  describe "Problem 2 - Find the last but one element of a list" $ do
-    context "myButLast" $ do
-      it "should return the last but one" $ do
-        myButLast [1 .. 100] `shouldBe` (99 :: Int)
-
-
-  describe "Problem 3 - Find the K'th element of a list. The first element in the list is number 1" $ do
-    context "elementAt" $ do
-      it "should return the fifth element" $ do
-        elementAt [1 .. 100] 5 `shouldBe` (5 :: Int)
-
-  describe "Problem 4 - Find the number of elements of a list" $ do
-    context "myLength" $ do
-      it "should return the number of elements" $ do
-        myLength [1 .. 100] `shouldBe` (100 :: Integer)
-
-  describe "Problem 5 - Find the number of elements of a list" $ do
-    context "myReverse" $ do
-      it "should return the number of elements" $ do
-        myReverse [1,2,3,4,5] `shouldBe` ([5,4,3,2,1])
-
-  describe "Problem 6 - Find out whether a list is a palindrome" $ do
-    context "isPalindrome" $ do
-      it "should return true if cab be read forward and backward the same" $ do
-        isPalindrome [1,2,3,2,1] `shouldBe` (True :: Bool)
-
-  describe "Problem 7 - Flatten a nested list structure." $ do
-    context "flatten" $ do
-      it "should return true if cab be read forward and backward the same" $ do
-        flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]]) `shouldBe` ([1,2,3,4,5])
-  
-  describe "Problem 8 - Eliminate consecutive duplicates of list elements" $ do
-    context "compress" $ do
-      it "should return compressed list" $ do
-        compress "aaaabccaadeeee" `shouldBe` ("abcade")
-
-  describe "Problem 9 - Pack consecutive duplicates of list elements into sublists.\n\
-  \If a list contains repeated elements they should be placed in separate sublists." $ do
-    context "pack" $ do
-      it "should pack (like group) together repeating elements" $ do
-        pack [1,2,3,2,1] `shouldBe` (True :: Bool)
-
-  describe "Problem 10 - Find out whether a list is a palindrome" $ do
-    context "isPalindrome" $ do
-      it "should return true if cab be read forward and backward the same" $ do
-        isPalindrome [1,2,3,2,1] `shouldBe` (True :: Bool)
+spec :: Spec
+spec = do
+  describe "Problems 1 to 10" P1To10Spec.spec
+  describe "Problems 11 to 20" P11To20Spec.spec
