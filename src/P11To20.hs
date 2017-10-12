@@ -1,92 +1,59 @@
 module P11To20
-    ( myLast
-    , myButLast
-    , elementAt
-    , myLength
-    , myReverse
-    , isPalindrome
-    , flatten
-    , NestedList (Elem, List)
-    , compress
-    , pack
-    , encode
+    ( ListItem (Single, Multiple)
+    , encodeModified
+    , decodeModified
+    , encodeDirect
+    , dupli
+    , repli
+    , dropEvery
     ) where
 
-import Control.Monad
-import Data.List
+import P1To10
 
--- Problem 1
-myLast :: [a] -> a
-myLast [] = error "empty list"
-myLast [x] = x
-myLast (x:xs) = myLast xs
+-- Problem 11
+data ListItem a = Single a | Multiple Int a
+  deriving (Show, Eq)
 
-myLast2 :: [a] -> a
-myLast2 = head . reverse
---last2 xs = head $ reverse xs
-
--- Problem 2
-myButLast = head . drop 1 . reverse
-
--- foldl :: (b -> a -> b) -> b -> t a -> b
--- where b is acc pair (,) and a is []
-myButLast2 :: Foldable f => f a -> a
-myButLast2 = fst . foldl (\(a,b) x -> (b,x)) (err1,err2)
+encodeModified :: Eq a => [a] -> [ListItem a]
+encodeModified xs = map encodeHelper $ encode xs
   where
-    err1 = error "lastbut1: Empty list"
-    err2 = error "lastbut1: Singleton"
+    encodeHelper (1,x) = Single x
+    encodeHelper (n,x) = Multiple n x
 
--- Problem 3
-elementAt :: [a] -> Int -> a
-elementAt (x:_) 1  = x
-elementAt (_:xs) i = elementAt xs (i - 1)
-elementAt _ _      = error "Index out of bounds"
+-- Problem 12
+decodeModified :: [ListItem a] -> [a]
+decodeModified = concatMap decodeHelper
+    where
+      decodeHelper (Single x)     = [x]
+      decodeHelper (Multiple n x) = replicate n x
 
--- Problem 4
-myLength :: Num a => [a] -> a
-myLength = sum . map (\_->1)
+-- Problem 13
+encode' :: Eq a => [a] -> [(Int,a)]
+encode' = foldr helper []
+    where
+      helper x [] = [(1,x)]
+      helper x (y@(a,b):ys)
+        | x == b    = (1+a,x):ys
+        | otherwise = (1,x):y:ys
+encodeDirect :: Eq a => [a] -> [ListItem a]
+encodeDirect = map encodeHelper . encode'
+    where
+      encodeHelper (1,x) = Single x
+      encodeHelper (n,x) = Multiple n x
 
--- Problem 5
-myReverse :: [a] -> [a]
-myReverse xs = foldl (\acc x -> x:acc) [] xs
+-- Problem 14
+dupli :: [a] -> [a]
+dupli = concatMap (\x -> [x,x])
 
--- Problem 6
-isPalindrome :: (Eq a) => [a] -> Bool
-isPalindrome xs = xs == (reverse xs)
+-- Problem 15
+repli :: [a] -> Int -> [a]
+repli xs n = concatMap (replicate n) xs
 
-isPalindrome2 :: (Eq a) => [a] -> Bool
-isPalindrome2 = liftM2 (==) id reverse
-
--- Problem 7
-data NestedList a = Elem a | List [NestedList a]
-flatten :: NestedList a -> [a]
-flatten (Elem a   )   = [a]
-flatten (List (x:xs)) = flatten x ++ flatten (List xs)
-flatten (List [])     = []
-
-flatten2 :: NestedList a -> [a]
-flatten2 (Elem x) = [x]
-flatten2 (List x) = concatMap flatten x
-
--- Problem 8
-compress :: (Eq a) => [a] -> [a]
-compress x = reverse $ foldl (\acc x -> if (head acc) == x then acc else x:acc) [head x] x
-
-compress2 :: Eq a => [a] -> [a]
-compress2 = map head . group
-
--- Problem 9
-pack :: Eq a => [a] -> [[a]]
-pack [] = []
-pack (x:xs) = (x : takeWhile (==x) xs) : (pack $ dropWhile (==x) xs)
-
-pack2 :: Eq a => [a] -> [[a]]
-pack2 = foldr packFold [] where
-  packFold x [] = [[x]]
-  packFold x (ys:yss) =
-    if head ys == x then ((x:ys):yss) else ([x]:ys:yss)
-
--- Problem 10
-encode :: Eq a => [a] -> [(Int, a)]
-encode xss = map (\xs -> (length xs, head xs)) $ pack xss
-
+-- Problem 16
+dropEvery :: Eq a => [a] -> Int -> [a]
+dropEvery (xs) n = reverse $ fst $ foldl (\acc x ->
+                                        if (snd acc `mod` n) == 0
+                                        then (fst acc, (snd acc + 1))
+                                        else
+                                          let arr = fst acc
+                                          in ((x:arr), (snd acc + 1))) ([], 1) xs
