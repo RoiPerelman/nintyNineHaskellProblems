@@ -88,5 +88,5 @@ pack2 = foldr packFold [] where
 
 -- Problem 10
 encode :: Eq a => [a] -> [(Int, a)]
-encode xss = map (\xs -> (length xs, head xs)) $ pack xss
+encode xs = map (\xs -> (length xs, head xs)) $ pack xs
 

@@ -40,3 +40,25 @@ spec = do
     context "dropEvery" $ do
       it "should drop every third element" $ do
         dropEvery "abcdefghik" 3 `shouldBe` ("abdeghk")
+
+  describe "Problem 17 - Split a list into two parts; the length of the first part is given" $ do
+    context "split" $ do
+      it "should drop every third element" $ do
+        split "abcdefghik" 3 `shouldBe` ("abc", "defghik")
+
+  describe "Problem 18 - Extract a slice from a list" $ do
+    context "slice" $ do
+      it "should give a list given 2 indices" $ do
+        slice "abcdefghik" 3 7 `shouldBe` ("cdefg")
+
+  describe "Problem 19 - Rotate a list N places to the left" $ do
+    context "rotate" $ do
+      it "should get a number and rotate the arr times that number" $ do
+        rotate "abcdefgh" 3 `shouldBe` ("defghabc")
+        rotate "abcdefgh" (-2) `shouldBe` ("ghabcdef")
+
+  describe "Problem 19 - Remove the K'th element from a list." $ do
+    context "removeAt" $ do
+      it "should remove the nth element of the list" $ do
+        removeAt "abcd" 2 `shouldBe` ("acd")
+
