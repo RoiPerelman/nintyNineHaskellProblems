@@ -1,3 +1,6 @@
+-- could only write this line
+-- {-# OPTIONS_GHC -F -pgmF hspec-discover #-}
+-- the following is the full way
 import Test.Hspec
 
 import qualified P1To10Spec
