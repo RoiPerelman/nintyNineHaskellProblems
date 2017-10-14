@@ -15,7 +15,7 @@ spec = do
 
   describe "Problem 22 - Create a list containing all integers within a given range." $ do
     context "range" $ do
-      it "should return an i" $ do
+      it "should return a range between start and end" $ do
         range 4 9 `shouldBe` ([4,5,6,7,8,9])
 
 
@@ -24,20 +24,20 @@ spec = do
       it "should return 3 random letters" $ do
         rnd_select "roiperelman" 3 >>= (`shouldSatisfy` (\xs -> length xs == 3))
 
-  -- describe "Problem 4 - Find the number of elements of a list" $ do
-  --   context "myLength" $ do
-  --     it "should return the number of elements" $ do
-  --       myLength [1 .. 100] `shouldBe` (100 :: Integer)
+  describe "Problem 24 - Draw N different random numbers from the set 1..M." $ do
+    context "diff_select" $ do
+      it "should select 3 random number between 1 and 7 should have 3 numbers" $ do
+        diff_select 3 7 >>= (`shouldSatisfy` (\xs -> length xs == 3))
 
-  -- describe "Problem 5 - Find the number of elements of a list" $ do
-  --   context "myReverse" $ do
-  --     it "should return the number of elements" $ do
-  --       myReverse [1,2,3,4,5] `shouldBe` ([5,4,3,2,1])
+  describe "Problem 25 - Generate a random permutation of the elements of a list." $ do
+    context "rnd_permu" $ do
+      it "should return a random permutation" $ do
+        rnd_permu [1,2,3,4,5] >>= (`shouldSatisfy` (\xs -> length xs == 5))
 
-  -- describe "Problem 6 - Find out whether a list is a palindrome" $ do
-  --   context "isPalindrome" $ do
-  --     it "should return true if cab be read forward and backward the same" $ do
-  --       isPalindrome [1,2,3,2,1] `shouldBe` (True :: Bool)
+  describe "Problem 26 - Generate the combinations of K distinct objects chosen from the N elements of a list" $ do
+    context "combinations" $ do
+      it "should return 6 combinations for choosing 2 out of 4 " $ do
+        combinations 2 [1,2,3,4] `shouldBe` ([[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]])
 
   -- describe "Problem 7 - Flatten a nested list structure." $ do
   --   context "flatten" $ do
