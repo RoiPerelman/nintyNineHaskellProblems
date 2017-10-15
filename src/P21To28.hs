@@ -1,4 +1,4 @@
-module P21To30
+module P21To28
     ( insertAt
     , range
     , rnd_select
