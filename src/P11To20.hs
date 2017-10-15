@@ -83,6 +83,7 @@ split xs n
             xs
     in (reverse ys, reverse zs)
 
+-- Problem 18
 slice :: [a] -> Int -> Int -> [a]
 slice xs n1 n2
   | n1 < 0 = xs
@@ -90,12 +91,14 @@ slice xs n1 n2
   | otherwise =
     take (n2 - n1 + 1) $ drop (n1 - 1) xs
 
+-- Problem 19
 rotate :: [a] -> Int -> [a]
 rotate xs n
   | n < 0 = rotate xs $ length xs + n
   | otherwise = let (ys, zs) = split xs n in
       concat [zs,ys]
 
+-- Problem 20
 removeAt :: [a] -> Int -> [a]
 removeAt xs n
   | n < 0 = xs

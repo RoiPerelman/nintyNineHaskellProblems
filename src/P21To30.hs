@@ -3,9 +3,11 @@ module P21To30
     , range
     , rnd_select
     , diff_select
-    , combinations
     , rnd_permu
     , combinations
+    , group'
+    , lsort
+    , lfsort
     ) where
 
 import qualified P11To20
@@ -56,9 +58,43 @@ rnd_permu xs = rnd_select xs $ length xs
 -- Problem 26
 -- for every subset find all the combinations and append them to the first index
 -- tails for [1,2,3] returns -> (1:2:3:[], 2:3:[], 3:[])
-combinations :: Show a => Int -> [a] -> [[a]]
+combinations :: Int -> [a] -> [[a]]
 combinations 0 _  = return []
 combinations n xs = do
   y:xs' <- tails xs
   ys <- combinations (n - 1) xs'
   return (y : ys)
+
+-- Problem 27
+removeItem _ []                 = []
+removeItem x (y:ys) | x == y    = ys
+                    | otherwise = y : removeItem x ys
+
+removeCmb :: Eq a => [a] -> [a] -> [a]
+removeCmb [] xs = xs
+removeCmb (cmb:cmbs) xs = removeCmb cmbs (removeItem cmb xs)
+
+group' :: Eq a => [Int] -> [a] -> [[[a]]]
+group' [] _ = [[]]
+group' (n:ns) xs = [ cmb:gs | cmb <- combinations n xs, gs <- group' ns $ removeCmb cmb xs]
+
+-- with do noataion instead of list comprehension
+group'' :: Eq a => [Int] -> [a] -> [[[a]]]
+group'' [] _ = [[]]
+group'' (n:ns) xs = do
+  cmb <- combinations n xs
+  gs <- group' ns $ removeCmb cmb xs
+  return (cmb:gs)
+
+-- Problem 28a
+lsort :: [[a]] -> [[a]]
+lsort xss = sortBy lengthSize xss where
+  lengthSize as bs
+    | length as < length bs = LT
+    | length as == length bs = EQ
+    | length as > length bs = GT
+
+-- Problem 28b
+
+lfsort :: [[a]] -> [[a]]
+lfsort xss = concat $ lsort $ groupBy (\xs ys -> length xs == length ys) $ lsort xss

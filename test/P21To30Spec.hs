@@ -39,23 +39,17 @@ spec = do
       it "should return 6 combinations for choosing 2 out of 4 " $ do
         combinations 2 [1,2,3,4] `shouldBe` ([[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]])
 
-  -- describe "Problem 7 - Flatten a nested list structure." $ do
-  --   context "flatten" $ do
-  --     it "should return true if cab be read forward and backward the same" $ do
-  --       flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]]) `shouldBe` ([1,2,3,4,5])
+  describe "Problem 27 - Group the elements of a set into disjoint subsets." $ do
+    context "group" $ do
+      it "should return true if cab be read forward and backward the same" $ do
+        group' [2,3,4] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"] `shouldSatisfy` (\x -> length x == 1260)
 
-  -- describe "Problem 8 - Eliminate consecutive duplicates of list elements" $ do
-  --   context "compress" $ do
-  --     it "should return compressed list" $ do
-  --       compress "aaaabccaadeeee" `shouldBe` ("abcade")
+  describe "Problem 28a - Sorting a list of lists according to length of sublists" $ do
+    context "lsort" $ do
+      it "should return compressed list" $ do
+        lsort ["abc","de","fgh","de","ijkl","mn","o"] `shouldBe` (["o","de","de","mn","abc","fgh","ijkl"])
 
-  -- describe "Problem 9 - Pack consecutive duplicates of list elements into sublists.\n\
-  -- \  If a list contains repeated elements they should be placed in separate sublists." $ do
-  --   context "pack" $ do
-  --     it "should pack (like group) together repeating elements" $ do
-  --       pack "aaaabccaadeeee" `shouldBe` ["aaaa","b","cc","aa","d","eeee"]
-
-  -- describe "Problem 10 - Find out whether a list is a palindrome" $ do
-  --   context "isPalindrome" $ do
-  --     it "should return true if cab be read forward and backward the same" $ do
-  --       encode "aaaabccaadeeee" `shouldBe` ([(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')])
+  describe "Problem 28b - Sorting a list of lists according to length of sublists" $ do
+    context "lfsort" $ do
+      it "should return compressed list" $ do
+        lfsort ["abc","de","fgh","de","ijkl","mn","o"] `shouldBe` (["o","ijkl","abc","fgh","de","de","mn"])
