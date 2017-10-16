@@ -6,7 +6,7 @@ import Test.Hspec
 import qualified P1To10Spec
 import qualified P11To20Spec
 import qualified P21To28Spec
-import qualified P31To30Spec
+import qualified P31To41Spec
 
 main :: IO ()
 main = hspec spec
