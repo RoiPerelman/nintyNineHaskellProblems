@@ -19,6 +19,7 @@ library
                      , P11To20
                      , P21To28
                      , P31To41
+                     , P46To50
   build-depends:       base >= 4.7 && < 5
                      , random
   default-language:    Haskell2010

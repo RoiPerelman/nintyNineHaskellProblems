@@ -53,3 +53,17 @@ primesR n1 n2
   | otherwise = primesR (findNextPrime n1) n2
 
 -- Problem 40
+goldbach :: Int -> (Int, Int)
+goldbach n = goldbachHelper n 2
+  where
+    goldbachHelper n p = let fprime = findNextPrime p in
+      if isPrime(n - fprime)
+      then (fprime, n - fprime)
+      else goldbachHelper n fprime
+
+-- Problem 41
+goldbachList :: Int -> Int -> [(Int, Int)]
+goldbachList s e = map goldbach $ dropWhile (<4) $ filter even [s .. e]
+
+goldbachList' ::  Int -> Int -> Int -> [(Int, Int)]
+goldbachList' start end minVal = filter (\(first, second) -> first >= minVal) $ goldbachList start end

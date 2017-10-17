@@ -40,23 +40,18 @@ spec = do
       it "should get a list containing the prime factors and their multiplicity" $ do
         prime_factors_mult 315 `shouldBe` ([(3,2),(5,1),(7,1)])
 
-  -- describe "Problem 17 - Split a list into two parts; the length of the first part is given" $ do
-  --   context "split" $ do
-  --     it "should drop every third element" $ do
-  --       split "abcdefghik" 3 `shouldBe` ("abc", "defghik")
-
-  -- describe "Problem 18 - Extract a slice from a list" $ do
-  --   context "slice" $ do
-  --     it "should give a list given 2 indices" $ do
-  --       slice "abcdefghik" 3 7 `shouldBe` ("cdefg")
-
   describe "Problem 39 - A list of prime numbers" $ do
     context "primesR" $ do
       it "should give all prime numbers in range" $ do
         primesR 10 20 `shouldBe` ([11, 13, 17, 19])
 
-  -- describe "Problem 19 - Remove the K'th element from a list." $ do
-  --   context "removeAt" $ do
-  --     it "should remove the nth element of the list" $ do
-  --       removeAt "abcd" 2 `shouldBe` ("acd")
+  describe "Problem 40 - Goldbach's conjecture" $ do
+    context "goldbach" $ do
+      it "should return 2 prime numbers that compose an even number" $ do
+        goldbach 28 `shouldBe` (5, 23)
 
+  describe "Problem 41 - Goldbach's conjecture" $ do
+    context "goldbachList" $ do
+      it "should return all instances of goldbach between 2 values (only for even numbers)" $ do
+        goldbachList 9 20 `shouldBe` ([(3,7),(5,7),(3,11),(3,13),(5,13),(3,17)])
+        goldbachList' 4 2000 50 `shouldBe` ([(73,919),(61,1321),(67,1789),(61,1867)])
