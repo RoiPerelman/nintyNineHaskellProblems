@@ -15,14 +15,17 @@ module P11To20
 import P1To10
 
 -- Problem 11
-data ListItem a = Single a | Multiple Int a
+data ListItem a
+  = Single a
+  | Multiple Int
+             a
   deriving (Show, Eq)
 
 encodeModified :: Eq a => [a] -> [ListItem a]
 encodeModified xs = map encodeHelper $ encode xs
   where
-    encodeHelper (1,x) = Single x
-    encodeHelper (n,x) = Multiple n x
+    encodeHelper (1, x) = Single x
+    encodeHelper (n, x) = Multiple n x
 
 -- Problem 12
 decodeModified :: [ListItem a] -> [a]
@@ -32,13 +35,14 @@ decodeModified = concatMap decodeHelper
     decodeHelper (Multiple n x) = replicate n x
 
 -- Problem 13
-encode' :: Eq a => [a] -> [(Int,a)]
+encode' :: Eq a => [a] -> [(Int, a)]
 encode' = foldr helper []
   where
     helper x [] = [(1, x)]
     helper x (y@(a, b):ys)
       | x == b = (1 + a, x) : ys
       | otherwise = (1, x) : y : ys
+
 encodeDirect :: Eq a => [a] -> [ListItem a]
 encodeDirect = map encodeHelper . encode'
   where
@@ -47,7 +51,7 @@ encodeDirect = map encodeHelper . encode'
 
 -- Problem 14
 dupli :: [a] -> [a]
-dupli = concatMap (\x -> [x,x])
+dupli = concatMap (\x -> [x, x])
 
 -- Problem 15
 repli :: [a] -> Int -> [a]
@@ -68,7 +72,7 @@ dropEvery (xs) n =
     xs
 
 -- Problem 17
-split :: [a] ->Int -> ([a], [a])
+split :: [a] -> Int -> ([a], [a])
 split xs n
   | n < 0 = (xs, [])
   | otherwise =
@@ -88,19 +92,18 @@ slice :: [a] -> Int -> Int -> [a]
 slice xs n1 n2
   | n1 < 0 = xs
   | n2 < 0 = xs
-  | otherwise =
-    take (n2 - n1 + 1) $ drop (n1 - 1) xs
+  | otherwise = take (n2 - n1 + 1) $ drop (n1 - 1) xs
 
 -- Problem 19
 rotate :: [a] -> Int -> [a]
 rotate xs n
   | n < 0 = rotate xs $ length xs + n
-  | otherwise = let (ys, zs) = split xs n in
-      concat [zs,ys]
+  | otherwise =
+    let (ys, zs) = split xs n
+    in concat [zs, ys]
 
 -- Problem 20
 removeAt :: [a] -> Int -> [a]
 removeAt xs n
   | n < 0 = xs
-  | otherwise =
-    concat [take (n-1) xs, drop (length xs - n) xs]
+  | otherwise = concat [take (n - 1) xs, drop (length xs - n) xs]

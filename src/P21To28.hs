@@ -1,25 +1,26 @@
 module P21To28
-    ( insertAt
-    , range
-    , rnd_select
-    , diff_select
-    , rnd_permu
-    , combinations
-    , group'
-    , lsort
-    , lfsort
-    ) where
+  ( insertAt
+  , range
+  , rnd_select
+  , diff_select
+  , rnd_permu
+  , combinations
+  , group'
+  , lsort
+  , lfsort
+  ) where
 
-import qualified P11To20
 import Control.Monad
-import System.Random
 import Data.List
 import Debug.Trace
+import qualified P11To20
+import System.Random
 
 -- Problem 21
 insertAt :: a -> [a] -> Int -> [a]
-insertAt c xs n = let (ys,zs) = P11To20.split xs n in
-  concat [ys,(c:zs)]
+insertAt c xs n =
+  let (ys, zs) = P11To20.split xs n
+  in concat [ys, (c : zs)]
 
 -- Problem 22
 range :: Int -> Int -> [Int]
