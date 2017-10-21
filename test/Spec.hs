@@ -8,6 +8,7 @@ import qualified P11To20Spec
 import qualified P21To28Spec
 import qualified P31To41Spec
 import qualified P46To50Spec
+import qualified P56To60Spec
 
 main :: IO ()
 main = hspec spec
@@ -19,3 +20,4 @@ spec = do
   describe "Problems 21 to 28" P21To28Spec.spec
   describe "Problems 31 to 41" P31To41Spec.spec
   describe "Problems 46 to 50" P46To50Spec.spec
+  describe "Problems 56 to 60" P56To60Spec.spec

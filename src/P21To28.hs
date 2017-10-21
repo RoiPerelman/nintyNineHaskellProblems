@@ -67,7 +67,7 @@ combinations n xs = do
   return (y : ys)
 
 -- Problem 27
-removeItem _ []                 = []
+r emoveItem _ []                 = []
 removeItem x (y:ys) | x == y    = ys
                     | otherwise = y : removeItem x ys
 
